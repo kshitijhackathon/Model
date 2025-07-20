@@ -50,6 +50,11 @@ def index():
     """Main page with upload interface."""
     return render_template('index.html')
 
+@app.route('/loading')
+def loading():
+    """Adobe-themed loading page."""
+    return render_template('loading.html')
+
 @app.route('/upload', methods=['POST'])
 def upload_files():
     """Handle file upload and processing."""

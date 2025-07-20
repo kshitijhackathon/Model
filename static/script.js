@@ -169,6 +169,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showProcessingStatus() {
+        // Show Adobe loading page
+        showAdobeLoadingPage();
+        
         if (processingStatus) {
             processingStatus.style.display = 'block';
             processingStatus.classList.add('processing-animation');
@@ -182,6 +185,106 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add processing sound effect (optional)
             playProcessingSound();
+        }
+    }
+    
+    function showAdobeLoadingPage() {
+        // Create full-screen Adobe loading overlay
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.id = 'adobe-loading-overlay';
+        loadingOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1E1E1E;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(144,19,254,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0,102,204,0.15) 0%, transparent 50%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+        `;
+        
+        loadingOverlay.innerHTML = `
+            <div style="text-align: center; color: white;">
+                <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 30px;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); animation: adobe-pulse 2s ease-in-out infinite;">
+                        <i class="fas fa-sync-alt" style="font-size: 40px; color: white; text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); animation: spin 1.5s linear infinite;"></i>
+                    </div>
+                    <div style="position: absolute; top: 0; left: 0; width: 120px; height: 120px; border: 3px solid transparent; border-radius: 50%; border-top: 3px solid #FF0000; border-right: 3px solid #9013FE; border-bottom: 3px solid #0066CC; animation: spin 1.5s linear infinite;"></div>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Adobe AI Processing</div>
+                <div style="font-size: 1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 30px;">Analyzing PDF document structure...</div>
+            </div>
+        `;
+        
+        document.body.appendChild(loadingOverlay);
+        
+        // Add animation styles if not exists
+        if (!document.querySelector('#adobe-loading-styles')) {
+            const style = document.createElement('style');
+            style.id = 'adobe-loading-styles';
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                @keyframes adobe-pulse {
+                    0%, 100% { 
+                        transform: translate(-50%, -50%) scale(1); 
+                        box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+                    }
+                    50% { 
+                        transform: translate(-50%, -50%) scale(1.1); 
+                        box-shadow: 0 0 60px rgba(144, 19, 254, 0.8);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        return loadingOverlay;
+    }
+    
+    function hideAdobeLoadingPage() {
+        const overlay = document.getElementById('adobe-loading-overlay');
+        if (overlay) {
+            overlay.style.animation = 'fadeOut 0.5s ease-in-out';
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+            }, 500);
+        }
+    }
+
+    function hideProcessingStatus() {
+        // Hide Adobe loading page
+        hideAdobeLoadingPage();
+        
+        if (processingStatus) {
+            processingStatus.style.display = 'none';
+            processingStatus.classList.remove('processing-animation');
+            
+            // Enable submit button
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-upload me-2"></i>Process PDFs';
+                submitBtn.style.background = ''; // Reset to default
+            }
         }
     }
     

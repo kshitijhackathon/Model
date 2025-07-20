@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adobe AI PDF Analyzer - Loading</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --adobe-red: #FF0000;
+            --adobe-purple: #9013FE;
+            --adobe-blue: #0066CC;
+            --adobe-gradient: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%);
+        }
+
+        body {
+            background: #1E1E1E;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(144,19,254,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0,102,204,0.15) 0%, transparent 50%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .loading-container {
+            text-align: center;
+            color: white;
+        }
+
+        .adobe-logo-loader {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+        }
+
+        .adobe-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--adobe-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            animation: adobe-pulse 2s ease-in-out infinite;
+        }
+
+        .adobe-icon i {
+            font-size: 40px;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .loading-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            border-top: 3px solid var(--adobe-red);
+            border-right: 3px solid var(--adobe-purple);
+            border-bottom: 3px solid var(--adobe-blue);
+            animation: adobe-spin 1.5s linear infinite;
+        }
+
+        .loading-ring::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: 120px;
+            height: 120px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            border-left: 2px solid rgba(255, 0, 0, 0.3);
+            border-bottom: 2px solid rgba(144, 19, 254, 0.3);
+            animation: adobe-spin 2s linear infinite reverse;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: var(--adobe-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: text-glow 3s ease-in-out infinite alternate;
+        }
+
+        .loading-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar-container {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--adobe-gradient);
+            border-radius: 10px;
+            animation: loading-progress 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .loading-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--adobe-red);
+            border-radius: 50%;
+            animation: float-up 4s linear infinite;
+            opacity: 0;
+        }
+
+        .particle:nth-child(2n) { 
+            background: var(--adobe-purple); 
+            animation-delay: 1s;
+        }
+        
+        .particle:nth-child(3n) { 
+            background: var(--adobe-blue); 
+            animation-delay: 2s;
+        }
+
+        @keyframes adobe-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes adobe-pulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.1); 
+                box-shadow: 0 0 60px rgba(144, 19, 254, 0.8);
+            }
+        }
+
+        @keyframes text-glow {
+            from {
+                filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+            }
+            to {
+                filter: drop-shadow(0 0 20px rgba(144, 19, 254, 0.7));
+            }
+        }
+
+        @keyframes loading-progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes float-up {
+            0% {
+                bottom: 0;
+                opacity: 0;
+                transform: translateX(0) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: translateX(200px) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="adobe-logo-loader">
+            <div class="adobe-icon">
+                <i class="fas fa-sync-alt"></i>
+            </div>
+            <div class="loading-ring"></div>
+        </div>
+        
+        <div class="loading-text">Adobe AI Processing</div>
+        <div class="loading-subtitle">Analyzing PDF document structure...</div>
+        
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="loading-particles">
+        <div class="particle" style="left: 10%;"></div>
+        <div class="particle" style="left: 20%;"></div>
+        <div class="particle" style="left: 30%;"></div>
+        <div class="particle" style="left: 40%;"></div>
+        <div class="particle" style="left: 50%;"></div>
+        <div class="particle" style="left: 60%;"></div>
+        <div class="particle" style="left: 70%;"></div>
+        <div class="particle" style="left: 80%;"></div>
+        <div class="particle" style="left: 90%;"></div>
+    </div>
+
+    <script>
+        // Auto redirect after loading simulation
+        setTimeout(() => {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }, 4000);
+
+        // Add more dynamic particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            document.querySelector('.loading-particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 4000);
+        }
+
+        setInterval(createParticle, 500);
+    </script>
+</body>
+</html>
