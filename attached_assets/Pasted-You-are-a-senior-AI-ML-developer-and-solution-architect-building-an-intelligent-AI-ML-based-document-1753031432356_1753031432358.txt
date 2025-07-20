@@ -1,0 +1,180 @@
+You are a senior AI/ML developer and solution architect building an intelligent AI/ML-based document understanding system for Round 1A of the Adobe Hackathon 2025: "Connecting the Dots". The objective is to build a robust PDF parser that uses a lightweight AI/ML model to analyze the structure of the document and extract:
+
+The Title of the document
+
+Headings (H1, H2, H3) from the PDF
+
+Their page numbers and hierarchy level
+
+You must build and return an end-to-end solution including the AI/ML model training pipeline, model inference, integration with a Python-based backend, and Dockerization.
+
+Your job is to output:
+
+Full ML pipeline code (training + inference)
+
+Model architecture (PyTorch or TensorFlow or sklearn)
+
+Code for converting PDF into structured features for model input
+
+Feature extraction logic from PDF (e.g. font size, boldness, x/y position, etc.)
+
+Code that takes PDF input → extracts features → passes through trained model → outputs structured JSON
+
+Complete Python + Docker project ready to run offline
+
+Model size must be <200MB, optimized and quantized if needed
+
+The model must run on CPU, on linux/amd64 platform
+
+It must complete execution in under 10 seconds for a 50-page PDF
+
+No internet should be required at runtime
+
+The code should support multiple PDFs in a folder and generate corresponding JSONs
+
+Project must produce structured JSON in this exact format:
+
+{
+"title": "Document Title",
+"outline": [
+{ "level": "H1", "text": "Section Heading", "page": 1 },
+{ "level": "H2", "text": "Subsection", "page": 2 },
+...
+]
+}
+
+🧠 Constraints (strict):
+
+PDF will have at most 50 pages
+
+No internet access at runtime
+
+The ML model + dependencies should fit in under 200MB
+
+It must run entirely on CPU
+
+The solution must work offline
+
+Must process entire PDF and generate JSON within 10 seconds
+
+No hardcoded font sizes or assumptions
+
+Must generalize across many kinds of PDF documents (books, reports, papers)
+
+🧠 Feature Ideas:
+
+Use PyMuPDF (fitz) or PDFPlumber to extract text blocks and features per span, such as:
+
+Font size (continuous numeric)
+
+Boldness (binary from flags)
+
+Position (x, y, block y)
+
+Page number
+
+Text length
+
+Is capitalized (binary)
+
+Is centered or left aligned
+
+Line spacing
+
+Font name or style
+
+Label spans into 4 classes:
+
+0 = Body text
+
+1 = H3
+
+2 = H2
+
+3 = H1
+
+(Title can be inferred from largest font + boldest span on first page)
+
+Train a small model (e.g. XGBoost, RandomForest, or LightMLP) using this labeled dataset. Or if no dataset is available, simulate a synthetic dataset and train a classifier. Save the model as joblib/pkl or torch.pt or tflite format.
+
+Your output should include:
+
+Full feature extraction script (from PDF to feature vector)
+
+Training script (PDF spans → features → model.fit)
+
+Inference script (new PDF → features → model.predict → JSON)
+
+Backend runner script (main.py) that:
+
+accepts PDF from /app/input
+
+runs model inference
+
+outputs JSON to /app/output
+
+Dockerfile that builds the project on linux/amd64 with:
+
+Python
+
+All dependencies
+
+Model file
+
+Runs main.py on startup
+
+requirements.txt listing dependencies
+
+README.md explaining:
+
+the ML architecture
+
+feature engineering choices
+
+runtime steps
+
+model accuracy (if possible)
+
+example usage
+
+Bonus (optional):
+
+Add logic to fallback to heuristic if model confidence < threshold
+
+Use KMeans or HDBSCAN for clustering font styles as weak supervision
+
+Add notebook to show how model was trained
+
+Please generate:
+
+main.py (entry point)
+
+feature_extraction.py
+
+train_model.py
+
+infer.py
+
+model.pkl or model.pt save code
+
+Dockerfile
+
+requirements.txt
+
+README.md
+
+Folder structure tree
+
+Example sample input and output JSON
+
+Make sure:
+
+All code is clean, well-commented, modular
+
+All requirements and constraints are followed
+
+All outputs are given in markdown code blocks
+
+AI/ML model is the core engine, not heuristics
+
+Now, please proceed to generate the entire solution
