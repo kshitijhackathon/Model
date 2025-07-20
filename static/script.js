@@ -173,11 +173,38 @@ document.addEventListener('DOMContentLoaded', function() {
             processingStatus.style.display = 'block';
             processingStatus.classList.add('processing-animation');
             
-            // Disable submit button
+            // Disable submit button with Adobe styling
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+                submitBtn.innerHTML = '<div class="adobe-loader" style="width: 20px; height: 20px; border-width: 2px;"></div> <span class="ms-2">AI Processing...</span>';
+                submitBtn.style.background = 'linear-gradient(135deg, #666 0%, #999 100%)';
             }
+            
+            // Add processing sound effect (optional)
+            playProcessingSound();
+        }
+    }
+    
+    function playProcessingSound() {
+        // Create a subtle processing sound using Web Audio API
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        } catch (e) {
+            // Silently fail if audio context not supported
         }
     }
 
@@ -207,6 +234,22 @@ window.toggleResult = function(elementId) {
     if (element) {
         const collapse = new bootstrap.Collapse(element);
         collapse.toggle();
+        
+        // Add Adobe-style animation
+        setTimeout(() => {
+            const outlineItems = element.querySelectorAll('.outline-item');
+            outlineItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(-20px)';
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.4s cubic-bezier(0.23, 1, 0.320, 1)';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateX(0)';
+                    }, 50);
+                }, index * 100);
+            });
+        }, 100);
     }
 };
 
@@ -215,13 +258,29 @@ window.copyJSON = function(data) {
     
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(jsonString).then(() => {
-            showCopyToast();
+            showCopyToast('JSON copied to clipboard!');
         }).catch(() => {
             fallbackCopyTextToClipboard(jsonString);
         });
     } else {
         fallbackCopyTextToClipboard(jsonString);
     }
+};
+
+window.downloadJSON = function(data, filename) {
+    const jsonString = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${filename.replace('.pdf', '')}_structure.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showCopyToast('JSON file downloaded!');
 };
 
 function fallbackCopyTextToClipboard(text) {
@@ -245,12 +304,63 @@ function fallbackCopyTextToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
-function showCopyToast() {
-    const toastElement = document.getElementById('copyToast');
-    if (toastElement) {
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
+function showCopyToast(message = 'JSON data copied to clipboard') {
+    // Remove existing toast if any
+    const existingToast = document.querySelector('.adobe-toast');
+    if (existingToast) {
+        existingToast.remove();
     }
+    
+    // Create Adobe-style toast
+    const toast = document.createElement('div');
+    toast.className = 'adobe-toast';
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+        z-index: 9999;
+        animation: slideInRight 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        backdrop-filter: blur(10px);
+    `;
+    
+    toast.innerHTML = `
+        <i class="fas fa-check-circle me-2"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Add CSS for animation
+    if (!document.querySelector('#adobe-toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'adobe-toast-styles';
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.style.animation = 'slideOutRight 0.4s cubic-bezier(0.23, 1, 0.320, 1)';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 400);
+    }, 3000);
 }
 
 // API helper functions

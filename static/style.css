@@ -1,40 +1,125 @@
-/* Custom styles for PDF Document Structure Analyzer */
+/* Adobe-themed 3D CSS for PDF Document Structure Analyzer */
 
 :root {
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Adobe Brand Colors */
+    --adobe-red: #FF0000;
+    --adobe-dark: #1E1E1E;
+    --adobe-blue: #0066CC;
+    --adobe-purple: #9013FE;
+    --adobe-orange: #FF4500;
+    
+    /* 3D Adobe Gradients */
+    --adobe-gradient: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%);
+    --adobe-card-gradient: linear-gradient(145deg, rgba(255,0,0,0.1) 0%, rgba(144,19,254,0.1) 50%, rgba(0,102,204,0.1) 100%);
+    --adobe-shadow: 0 20px 60px rgba(255, 0, 0, 0.2), 0 8px 25px rgba(144, 19, 254, 0.15);
+    --adobe-text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    
+    /* 3D Effects */
+    --card-3d-shadow: 
+        0 1px 3px rgba(0,0,0,0.12),
+        0 1px 2px rgba(0,0,0,0.24),
+        0 10px 25px rgba(255,0,0,0.1),
+        0 20px 40px rgba(144,19,254,0.08);
 }
 
 body {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: var(--adobe-dark);
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255,0,0,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(144,19,254,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0,102,204,0.1) 0%, transparent 50%);
     min-height: 100vh;
     background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Adobe-style 3D Cards */
 .card {
     border: none;
-    box-shadow: var(--card-shadow);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+    box-shadow: var(--card-3d-shadow);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(30, 30, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: perspective(1000px) rotateX(0deg);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--adobe-card-gradient);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.card:hover {
+    transform: perspective(1000px) rotateX(-5deg) translateY(-10px);
+    box-shadow: 
+        var(--card-3d-shadow),
+        0 30px 80px rgba(255,0,0,0.15);
 }
 
 .card-header {
-    border-radius: 15px 15px 0 0 !important;
-    background: var(--primary-gradient) !important;
+    border-radius: 20px 20px 0 0 !important;
+    background: var(--adobe-gradient) !important;
     border-bottom: none;
+    position: relative;
+    overflow: hidden;
+    text-shadow: var(--adobe-text-shadow);
 }
 
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.card-header:hover::before {
+    left: 100%;
+}
+
+/* Adobe-style Buttons */
 .btn-primary {
-    background: var(--primary-gradient);
+    background: var(--adobe-gradient);
     border: none;
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    text-shadow: var(--adobe-text-shadow);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
+}
+
+.btn-primary:hover::before {
+    left: 100%;
 }
 
 .navbar-brand {
@@ -42,21 +127,140 @@ body {
     font-size: 1.5rem;
 }
 
+/* Adobe-style Text Effects */
 .display-4 {
-    background: var(--primary-gradient);
+    background: var(--adobe-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    animation: adobe-glow 3s ease-in-out infinite alternate;
 }
 
+@keyframes adobe-glow {
+    from {
+        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+    }
+    to {
+        filter: drop-shadow(0 0 20px rgba(144, 19, 254, 0.7));
+    }
+}
+
+/* Adobe-style JSON Output Display */
+.json-output-container {
+    background: rgba(30, 30, 30, 0.95);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--card-3d-shadow);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.json-output-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--adobe-gradient);
+}
+
+.json-tree {
+    font-family: 'Courier New', monospace;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.json-key {
+    color: var(--adobe-red);
+    font-weight: bold;
+}
+
+.json-string {
+    color: #4CAF50;
+}
+
+.json-number {
+    color: var(--adobe-blue);
+}
+
+.json-bracket {
+    color: var(--adobe-purple);
+    font-weight: bold;
+}
+
+/* Enhanced Outline Items */
 .outline-item {
-    transition: all 0.2s ease;
-    padding: 8px;
-    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--adobe-gradient);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .outline-item:hover {
-    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    background: rgba(255, 0, 0, 0.1);
+    transform: translateX(10px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.2);
+}
+
+.outline-item:hover::before {
+    opacity: 1;
+}
+
+.title-display {
+    background: var(--adobe-card-gradient);
+    border: 2px solid rgba(255, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.title-display::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 0, 0, 0.1),
+        transparent,
+        rgba(144, 19, 254, 0.1),
+        transparent
+    );
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .progress {
@@ -160,7 +364,43 @@ code {
     background: rgba(255, 255, 255, 0.5);
 }
 
-/* Loading spinner enhancement */
+/* Adobe-style Loading Animation */
+.adobe-loader {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top: 3px solid var(--adobe-red);
+    border-right: 3px solid var(--adobe-purple);
+    border-bottom: 3px solid var(--adobe-blue);
+    animation: adobe-spin 1.5s cubic-bezier(0.23, 1, 0.320, 1) infinite;
+    position: relative;
+}
+
+.adobe-loader::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: var(--adobe-gradient);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: adobe-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes adobe-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes adobe-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
 .spinner-border {
     width: 3rem;
     height: 3rem;
