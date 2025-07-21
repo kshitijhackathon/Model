@@ -146,7 +146,7 @@
                     <div id="result-{{ loop.index }}" class="collapse mt-3">
                         <!-- Document Title Display -->
                         <div class="title-display mb-4">
-                            <h5 class="mb-2" style="color: var(--adobe-red);">
+                            <h5 class="mb-2" style="color: var(--color-secondary);">
                                 <i class="fas fa-heading me-2"></i>
                                 Document Title
                             </h5>
@@ -157,7 +157,7 @@
 
                         <!-- Document Outline -->
                         <div class="mb-4">
-                            <h5 class="mb-3" style="color: var(--adobe-purple);">
+                            <h5 class="mb-3" style="color: var(--color-accent);">
                                 <i class="fas fa-sitemap me-2"></i>
                                 Document Structure
                             </h5>
@@ -165,11 +165,11 @@
                                 <div class="outline-tree">
                                     {% for item in result.result.outline %}
                                     <div class="outline-item" style="margin-left: {{ (item.level|replace('H', '')|int - 1) * 20 }}px;">
-                                        <span class="badge me-2" style="background: var(--adobe-gradient);">
+                                        <span class="badge me-2" style="background: var(--main-gradient); color: white;">
                                             {{ item.level }}
                                         </span>
                                         <strong style="color: #fff;">{{ item.text }}</strong>
-                                        <small class="ms-2" style="color: var(--adobe-blue);">(Page {{ item.page }})</small>
+                                        <small class="ms-2" style="color: var(--color-highlight);">(Page {{ item.page }})</small>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -180,20 +180,20 @@
 
                         <!-- JSON Output -->
                         <div class="json-output-container">
-                            <h6 class="mb-3" style="color: var(--adobe-orange);">
+                            <h6 class="mb-3" style="color: var(--color-highlight);">
                                 <i class="fas fa-code me-2"></i>
                                 JSON Output
                             </h6>
                             <div class="json-tree">
-                                <pre id="json-{{ loop.index }}" style="color: #fff; background: transparent; border: none; margin: 0;">{{ result.result|tojson(indent=2) }}</pre>
+                                <pre id="json-{{ loop.index }}">{{ result.result|tojson(indent=2) }}</pre>
                             </div>
                             <div class="mt-3">
                                 <button class="btn btn-sm" onclick="copyJSON({{ result.result|tojson }})" 
-                                        style="background: var(--adobe-gradient); color: white; border: none;">
+                                        style="background: var(--main-gradient); color: white; border: none; padding: 8px 16px;">
                                     <i class="fas fa-copy me-1"></i>
                                     Copy JSON
                                 </button>
-                                <button class="btn btn-sm btn-outline-light ms-2" onclick="downloadJSON({{ result.result|tojson }}, '{{ result.filename }}')">
+                                <button class="btn btn-sm btn-outline-light ms-2" onclick="downloadJSON({{ result.result|tojson }}, '{{ result.filename }}')" style="padding: 8px 16px;">
                                     <i class="fas fa-download me-1"></i>
                                     Download
                                 </button>

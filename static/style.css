@@ -1,33 +1,33 @@
 /* Adobe-themed 3D CSS for PDF Document Structure Analyzer */
 
 :root {
-    /* Adobe Brand Colors */
-    --adobe-red: #FF0000;
-    --adobe-dark: #1E1E1E;
-    --adobe-blue: #0066CC;
-    --adobe-purple: #9013FE;
-    --adobe-orange: #FF4500;
+    /* Custom Color Palette */
+    --color-primary: #12114b;   /* Deep Purple */
+    --color-secondary: #27cbd5; /* Turquoise */
+    --color-accent: #f96942;    /* Orange-Red */
+    --color-highlight: #fece22; /* Golden Yellow */
+    --color-light: #eae786;     /* Light Yellow */
     
-    /* 3D Adobe Gradients */
-    --adobe-gradient: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%);
-    --adobe-card-gradient: linear-gradient(145deg, rgba(255,0,0,0.1) 0%, rgba(144,19,254,0.1) 50%, rgba(0,102,204,0.1) 100%);
-    --adobe-shadow: 0 20px 60px rgba(255, 0, 0, 0.2), 0 8px 25px rgba(144, 19, 254, 0.15);
-    --adobe-text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    /* Advanced Gradients */
+    --main-gradient: linear-gradient(135deg, #12114b 0%, #27cbd5 25%, #f96942 50%, #fece22 75%, #eae786 100%);
+    --card-gradient: linear-gradient(145deg, rgba(18,17,75,0.1) 0%, rgba(39,203,213,0.1) 50%, rgba(249,105,66,0.1) 100%);
+    --background-gradient: linear-gradient(135deg, #12114b 0%, #27cbd5 100%);
+    --text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     
-    /* 3D Effects */
+    /* Enhanced 3D Effects */
     --card-3d-shadow: 
         0 1px 3px rgba(0,0,0,0.12),
         0 1px 2px rgba(0,0,0,0.24),
-        0 10px 25px rgba(255,0,0,0.1),
-        0 20px 40px rgba(144,19,254,0.08);
+        0 10px 25px rgba(18,17,75,0.15),
+        0 20px 40px rgba(39,203,213,0.1);
 }
 
 body {
-    background: var(--adobe-dark);
+    background: var(--color-primary);
     background-image: 
-        radial-gradient(circle at 20% 50%, rgba(255,0,0,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(144,19,254,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(0,102,204,0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(39,203,213,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(249,105,66,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(254,206,34,0.15) 0%, transparent 50%);
     min-height: 100vh;
     background-attachment: fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -68,11 +68,11 @@ body {
 
 .card-header {
     border-radius: 20px 20px 0 0 !important;
-    background: var(--adobe-gradient) !important;
+    background: var(--main-gradient) !important;
     border-bottom: none;
     position: relative;
     overflow: hidden;
-    text-shadow: var(--adobe-text-shadow);
+    text-shadow: var(--text-shadow);
 }
 
 .card-header::before {
@@ -90,14 +90,14 @@ body {
     left: 100%;
 }
 
-/* Adobe-style Buttons */
+/* Enhanced Buttons */
 .btn-primary {
-    background: var(--adobe-gradient);
+    background: var(--main-gradient);
     border: none;
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-    text-shadow: var(--adobe-text-shadow);
-    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+    text-shadow: var(--text-shadow);
+    box-shadow: 0 8px 25px rgba(18, 17, 75, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -115,7 +115,7 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 15px 35px rgba(39, 203, 213, 0.4);
 }
 
 .btn-primary:hover::before {
@@ -127,29 +127,29 @@ body {
     font-size: 1.5rem;
 }
 
-/* Adobe-style Text Effects */
+/* Enhanced Text Effects */
 .display-4 {
-    background: var(--adobe-gradient);
+    background: var(--main-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-    animation: adobe-glow 3s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px rgba(39, 203, 213, 0.5);
+    animation: color-glow 3s ease-in-out infinite alternate;
 }
 
-@keyframes adobe-glow {
+@keyframes color-glow {
     from {
-        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+        filter: drop-shadow(0 0 10px rgba(39, 203, 213, 0.7));
     }
     to {
-        filter: drop-shadow(0 0 20px rgba(144, 19, 254, 0.7));
+        filter: drop-shadow(0 0 20px rgba(249, 105, 66, 0.7));
     }
 }
 
-/* Adobe-style JSON Output Display */
+/* Enhanced JSON Output Display */
 .json-output-container {
-    background: rgba(30, 30, 30, 0.95);
-    border: 1px solid rgba(255, 0, 0, 0.2);
+    background: rgba(18, 17, 75, 0.95);
+    border: 2px solid var(--color-secondary);
     border-radius: 15px;
     padding: 20px;
     margin: 20px 0;
@@ -157,6 +157,8 @@ body {
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .json-output-container::before {
@@ -166,43 +168,80 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--adobe-gradient);
+    background: var(--main-gradient);
 }
 
 .json-tree {
-    font-family: 'Courier New', monospace;
+    font-family: 'Fira Code', 'Courier New', monospace;
     color: #fff;
-    line-height: 1.6;
+    line-height: 1.4;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.json-tree pre {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    border: none !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
 }
 
 .json-key {
-    color: var(--adobe-red);
+    color: var(--color-secondary);
     font-weight: bold;
 }
 
 .json-string {
-    color: #4CAF50;
+    color: var(--color-light);
 }
 
 .json-number {
-    color: var(--adobe-blue);
+    color: var(--color-highlight);
 }
 
 .json-bracket {
-    color: var(--adobe-purple);
+    color: var(--color-accent);
     font-weight: bold;
+}
+
+/* Scrollbar styling for JSON container */
+.json-output-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.json-output-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.json-output-container::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 10px;
+}
+
+.json-output-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
 }
 
 /* Enhanced Outline Items */
 .outline-item {
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-    padding: 15px;
+    padding: 12px 15px;
     border-radius: 12px;
-    margin: 10px 0;
+    margin: 8px 0;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
 .outline-item::before {
@@ -212,30 +251,45 @@ body {
     left: 0;
     width: 4px;
     height: 100%;
-    background: var(--adobe-gradient);
+    background: var(--main-gradient);
     opacity: 0;
     transition: opacity 0.3s;
 }
 
 .outline-item:hover {
-    background: rgba(255, 0, 0, 0.1);
-    transform: translateX(10px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.2);
+    background: rgba(39, 203, 213, 0.1);
+    transform: translateX(8px) scale(1.01);
+    box-shadow: 0 8px 20px rgba(39, 203, 213, 0.2);
 }
 
 .outline-item:hover::before {
     opacity: 1;
 }
 
+/* Better responsive text in outline items */
+.outline-item strong {
+    display: inline-block;
+    max-width: 80%;
+    word-break: break-word;
+    line-height: 1.3;
+}
+
 .title-display {
-    background: var(--adobe-card-gradient);
-    border: 2px solid rgba(255, 0, 0, 0.3);
+    background: var(--card-gradient);
+    border: 2px solid var(--color-secondary);
     border-radius: 15px;
     padding: 20px;
     text-align: center;
     margin: 20px 0;
     position: relative;
     overflow: hidden;
+}
+
+.title-display h4 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    word-break: break-word;
+    margin: 0;
 }
 
 .title-display::before {
@@ -248,9 +302,9 @@ body {
     background: conic-gradient(
         from 0deg,
         transparent,
-        rgba(255, 0, 0, 0.1),
+        rgba(39, 203, 213, 0.1),
         transparent,
-        rgba(144, 19, 254, 0.1),
+        rgba(249, 105, 66, 0.1),
         transparent
     );
     animation: rotate 4s linear infinite;

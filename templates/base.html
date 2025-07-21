@@ -15,16 +15,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Adobe-themed Navigation -->
-    <nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%); box-shadow: 0 4px 20px rgba(255,0,0,0.3);">
+    <!-- Enhanced Navigation -->
+    <nav class="navbar navbar-expand-lg" style="background: var(--main-gradient); box-shadow: 0 4px 20px rgba(18,17,75,0.4);">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('index') }}" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                <i class="fas fa-file-pdf me-2" style="color: #fff;"></i>
-                <strong>Adobe AI PDF Analyzer</strong>
+                <i class="fas fa-file-pdf me-2" style="color: var(--color-light);"></i>
+                <strong>AI PDF Document Analyzer</strong>
             </a>
             <div class="navbar-nav ms-auto">
                 <span class="navbar-text" style="color: rgba(255,255,255,0.9);">
-                    <i class="fas fa-trophy me-2"></i>
+                    <i class="fas fa-trophy me-2" style="color: var(--color-highlight);"></i>
                     <small><strong>Hackathon 2025</strong></small>
                 </span>
             </div>
@@ -48,37 +48,37 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Adobe-themed Footer -->
-    <footer style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-top: 3px solid; border-image: linear-gradient(90deg, #FF0000, #9013FE, #0066CC) 1;" class="text-light py-4 mt-5">
+    <!-- Enhanced Footer -->
+    <footer style="background: linear-gradient(135deg, var(--color-primary) 0%, rgba(18,17,75,0.9) 100%); border-top: 3px solid; border-image: var(--main-gradient) 1;" class="text-light py-4 mt-5">
         <div class="container text-center">
-            <p class="mb-2" style="background: var(--adobe-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.2rem;">
+            <p class="mb-2" style="background: var(--main-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.2rem;">
                 <strong>AI/ML-Powered PDF Document Structure Analysis</strong>
             </p>
             <p class="mb-2" style="color: #fff;">
-                <i class="fas fa-robot me-2" style="color: var(--adobe-red);"></i>
-                Built for <strong style="color: var(--adobe-purple);">Adobe Hackathon 2025</strong>: "Connecting the Dots"
+                <i class="fas fa-robot me-2" style="color: var(--color-secondary);"></i>
+                Built for <strong style="color: var(--color-highlight);">Hackathon 2025</strong>: "Connecting the Dots"
             </p>
             <div class="row mt-3">
                 <div class="col-md-3">
-                    <small style="color: var(--adobe-red);">
+                    <small style="color: var(--color-secondary);">
                         <i class="fas fa-heading me-1"></i>
                         Title Extraction
                     </small>
                 </div>
                 <div class="col-md-3">
-                    <small style="color: var(--adobe-purple);">
+                    <small style="color: var(--color-accent);">
                         <i class="fas fa-sitemap me-1"></i>
                         Heading Detection
                     </small>
                 </div>
                 <div class="col-md-3">
-                    <small style="color: var(--adobe-blue);">
+                    <small style="color: var(--color-highlight);">
                         <i class="fas fa-chart-line me-1"></i>
                         Structure Analysis
                     </small>
                 </div>
                 <div class="col-md-3">
-                    <small style="color: var(--adobe-orange);">
+                    <small style="color: var(--color-light);">
                         <i class="fas fa-layer-group me-1"></i>
                         Batch Processing
                     </small>

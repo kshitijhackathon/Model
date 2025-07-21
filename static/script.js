@@ -198,11 +198,11 @@ document.addEventListener('DOMContentLoaded', function() {
             left: 0;
             width: 100%;
             height: 100%;
-            background: #1E1E1E;
+            background: #12114b;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(144,19,254,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(0,102,204,0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(39,203,213,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(249,105,66,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(254,206,34,0.15) 0%, transparent 50%);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -213,12 +213,12 @@ document.addEventListener('DOMContentLoaded', function() {
         loadingOverlay.innerHTML = `
             <div style="text-align: center; color: white;">
                 <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 30px;">
-                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); animation: adobe-pulse 2s ease-in-out infinite;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #12114b 0%, #27cbd5 25%, #f96942 50%, #fece22 75%, #eae786 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 40px rgba(39, 203, 213, 0.6); animation: adobe-pulse 2s ease-in-out infinite;">
                         <i class="fas fa-sync-alt" style="font-size: 40px; color: white; text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); animation: spin 1.5s linear infinite;"></i>
                     </div>
-                    <div style="position: absolute; top: 0; left: 0; width: 120px; height: 120px; border: 3px solid transparent; border-radius: 50%; border-top: 3px solid #FF0000; border-right: 3px solid #9013FE; border-bottom: 3px solid #0066CC; animation: spin 1.5s linear infinite;"></div>
+                    <div style="position: absolute; top: 0; left: 0; width: 120px; height: 120px; border: 3px solid transparent; border-radius: 50%; border-top: 3px solid #27cbd5; border-right: 3px solid #f96942; border-bottom: 3px solid #fece22; animation: spin 1.5s linear infinite;"></div>
                 </div>
-                <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Adobe AI Processing</div>
+                <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; background: linear-gradient(135deg, #12114b 0%, #27cbd5 25%, #f96942 50%, #fece22 75%, #eae786 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AI Document Processing</div>
                 <div style="font-size: 1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 30px;">Analyzing PDF document structure...</div>
             </div>
         `;
@@ -245,11 +245,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 @keyframes adobe-pulse {
                     0%, 100% { 
                         transform: translate(-50%, -50%) scale(1); 
-                        box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+                        box-shadow: 0 0 40px rgba(39, 203, 213, 0.6);
                     }
                     50% { 
                         transform: translate(-50%, -50%) scale(1.1); 
-                        box-shadow: 0 0 60px rgba(144, 19, 254, 0.8);
+                        box-shadow: 0 0 60px rgba(249, 105, 66, 0.8);
                     }
                 }
             `;
@@ -421,11 +421,11 @@ function showCopyToast(message = 'JSON data copied to clipboard') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%);
+        background: linear-gradient(135deg, #12114b 0%, #27cbd5 25%, #f96942 50%, #fece22 75%, #eae786 100%);
         color: white;
         padding: 15px 25px;
         border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+        box-shadow: 0 10px 25px rgba(39, 203, 213, 0.4);
         z-index: 9999;
         animation: slideInRight 0.4s cubic-bezier(0.23, 1, 0.320, 1);
         backdrop-filter: blur(10px);

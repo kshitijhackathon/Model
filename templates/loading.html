@@ -12,18 +12,20 @@
     
     <style>
         :root {
-            --adobe-red: #FF0000;
-            --adobe-purple: #9013FE;
-            --adobe-blue: #0066CC;
-            --adobe-gradient: linear-gradient(135deg, #FF0000 0%, #9013FE 50%, #0066CC 100%);
+            --color-primary: #12114b;
+            --color-secondary: #27cbd5;
+            --color-accent: #f96942;
+            --color-highlight: #fece22;
+            --color-light: #eae786;
+            --main-gradient: linear-gradient(135deg, #12114b 0%, #27cbd5 25%, #f96942 50%, #fece22 75%, #eae786 100%);
         }
 
         body {
-            background: #1E1E1E;
+            background: var(--color-primary);
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(144,19,254,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(0,102,204,0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(39,203,213,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(249,105,66,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(254,206,34,0.15) 0%, transparent 50%);
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -49,7 +51,7 @@
         .adobe-icon {
             width: 80px;
             height: 80px;
-            background: var(--adobe-gradient);
+            background: var(--main-gradient);
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -58,7 +60,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 40px rgba(39, 203, 213, 0.6);
             animation: adobe-pulse 2s ease-in-out infinite;
         }
 
@@ -76,9 +78,9 @@
             height: 120px;
             border: 3px solid transparent;
             border-radius: 50%;
-            border-top: 3px solid var(--adobe-red);
-            border-right: 3px solid var(--adobe-purple);
-            border-bottom: 3px solid var(--adobe-blue);
+            border-top: 3px solid var(--color-secondary);
+            border-right: 3px solid var(--color-accent);
+            border-bottom: 3px solid var(--color-highlight);
             animation: adobe-spin 1.5s linear infinite;
         }
 
@@ -91,8 +93,8 @@
             height: 120px;
             border: 2px solid transparent;
             border-radius: 50%;
-            border-left: 2px solid rgba(255, 0, 0, 0.3);
-            border-bottom: 2px solid rgba(144, 19, 254, 0.3);
+            border-left: 2px solid rgba(39, 203, 213, 0.3);
+            border-bottom: 2px solid rgba(249, 105, 66, 0.3);
             animation: adobe-spin 2s linear infinite reverse;
         }
 
@@ -100,7 +102,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 15px;
-            background: var(--adobe-gradient);
+            background: var(--main-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -125,10 +127,10 @@
 
         .progress-bar-fill {
             height: 100%;
-            background: var(--adobe-gradient);
+            background: var(--main-gradient);
             border-radius: 10px;
             animation: loading-progress 3s ease-in-out infinite;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 20px rgba(39, 203, 213, 0.6);
         }
 
         .loading-particles {
@@ -144,19 +146,19 @@
             position: absolute;
             width: 4px;
             height: 4px;
-            background: var(--adobe-red);
+            background: var(--color-secondary);
             border-radius: 50%;
             animation: float-up 4s linear infinite;
             opacity: 0;
         }
 
         .particle:nth-child(2n) { 
-            background: var(--adobe-purple); 
+            background: var(--color-accent); 
             animation-delay: 1s;
         }
         
         .particle:nth-child(3n) { 
-            background: var(--adobe-blue); 
+            background: var(--color-highlight); 
             animation-delay: 2s;
         }
 
@@ -168,20 +170,20 @@
         @keyframes adobe-pulse {
             0%, 100% { 
                 transform: translate(-50%, -50%) scale(1); 
-                box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+                box-shadow: 0 0 40px rgba(39, 203, 213, 0.6);
             }
             50% { 
                 transform: translate(-50%, -50%) scale(1.1); 
-                box-shadow: 0 0 60px rgba(144, 19, 254, 0.8);
+                box-shadow: 0 0 60px rgba(249, 105, 66, 0.8);
             }
         }
 
         @keyframes text-glow {
             from {
-                filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+                filter: drop-shadow(0 0 10px rgba(39, 203, 213, 0.7));
             }
             to {
-                filter: drop-shadow(0 0 20px rgba(144, 19, 254, 0.7));
+                filter: drop-shadow(0 0 20px rgba(249, 105, 66, 0.7));
             }
         }
 
@@ -220,7 +222,7 @@
             <div class="loading-ring"></div>
         </div>
         
-        <div class="loading-text">Adobe AI Processing</div>
+        <div class="loading-text">AI Document Processing</div>
         <div class="loading-subtitle">Analyzing PDF document structure...</div>
         
         <div class="progress-bar-container">
